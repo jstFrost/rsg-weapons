@@ -135,12 +135,24 @@ RegisterNetEvent('rsg-weapons:client:UseWeapon', function(weaponData, shootbool)
                     }
                 end
 
-                if weaponName == 'weapon_bow' or weaponName == 'weapon_bow_improved' then
+               if weaponName == 'weapon_bow' or weaponName == 'weapon_bow_improved' then
                     if weponammo == nil or weponammo == 0 then
-                        local hasItem = RSGCore.Functions.HasItem('ammo_arrow', 1)
-                        if hasItem then
-                            weponammo = Config.AmountArrowAmmo
+                        local hasArrow = RSGCore.Functions.HasItem('ammo_arrow', 1)
+                        local hasFireArrow = RSGCore.Functions.HasItem('ammo_arrow_fire', 1)
+                        local hasPoisonArrow = RSGCore.Functions.HasItem('ammo_arrow_poison', 1)
+                        local hasDynamiteArrow = RSGCore.Functions.HasItem('ammo_arrow_dynamite', 1)
+                        if hasArrow then
                             TriggerServerEvent('rsg-weapons:server:removeWeaponAmmoItem', 'ammo_arrow')
+                            Citizen.InvokeNative(0x106A811C6D3035F3, ped, GetHashKey('AMMO_ARROW'), Config.AmountArrowAmmo, 752097756)
+                        elseif hasFireArrow then
+                            TriggerServerEvent('rsg-weapons:server:removeWeaponAmmoItem', 'ammo_arrow_fire')
+                            Citizen.InvokeNative(0x106A811C6D3035F3, ped, GetHashKey('AMMO_ARROW_FIRE'), Config.AmountFireArrowAmmo, 752097756)
+                        elseif hasPoisonArrow then
+                            TriggerServerEvent('rsg-weapons:server:removeWeaponAmmoItem', 'ammo_arrow_poison')
+                            Citizen.InvokeNative(0x106A811C6D3035F3, ped, GetHashKey('AMMO_ARROW_POISON'), Config.AmountPoisonArrowAmmo, 752097756)
+                        elseif hasDynamiteArrow then
+                            TriggerServerEvent('rsg-weapons:server:removeWeaponAmmoItem', 'ammo_arrow_dynamite')
+                            Citizen.InvokeNative(0x106A811C6D3035F3, ped, GetHashKey('AMMO_ARROW_DYNAMITE'), Config.AmountDynamiteArrowAmmo, 752097756)
                         else
                             weponammo = 0
                             lib.notify({ title = Lang:t('error.no_arrows_your_inventory_load'), type = 'error', duration = 5000 })
@@ -159,10 +171,7 @@ RegisterNetEvent('rsg-weapons:client:UseWeapon', function(weaponData, shootbool)
                     --local _currentAmmo = loadedAmmo[wepSerial]
                     Citizen.InvokeNative(0x5E3BDDBCB83F3D84, ped, hash, 0, false, true)
                 end
-                if weaponName == 'weapon_bow' or weaponName == 'weapon_bow_improved' then
-                    Citizen.InvokeNative(0x14E56BC5B5DB6A19, ped, hash, weponammo)
-
-                elseif  string.find(weaponName, 'thrown') then
+                if  string.find(weaponName, 'thrown') then
                     local _ammoType = Config.AmmoTypes[weaponName]
                     Citizen.InvokeNative(0x106A811C6D3035F3, ped, _ammoType, Config.AmountThrowablesAmmo, 752097756)
                 else
@@ -361,7 +370,7 @@ RegisterNetEvent('rsg-weapons:client:AddAmmo', function(ammotype, amount, ammo)
         ammo_type = 'ammo_rifle'
         valid_ammo = true
     end
-
+    
     if weapongroup == 860033945 and ammotype == 'AMMO_SHOTGUN' then -- shotgun weapon group
         max_ammo = Config.MaxShotgunAmmo
         amount_ammo = Config.AmountShotgunAmmo
@@ -376,6 +385,27 @@ RegisterNetEvent('rsg-weapons:client:AddAmmo', function(ammotype, amount, ammo)
         valid_ammo = true
     end
 
+       if weapongroup == -1241684019 and ammotype == 'AMMO_ARROW_FIRE' then -- bow weapon group
+        max_ammo = Config.MaxArrowAmmoFire
+        amount_ammo = Config.AmountFireArrowAmmo
+        ammo_type = 'ammo_arrow_fire'
+        valid_ammo = true
+    end
+        
+    if weapongroup == -1241684019 and ammotype == 'AMMO_ARROW_DYNAMITE' then -- bow weapon group
+        max_ammo = Config.MaxArrowAmmoFire
+        amount_ammo = Config.AmountDynamiteArrowAmmo
+        ammo_type = 'ammo_arrow_dynamite'
+        valid_ammo = true
+    end
+        
+    if weapongroup == -1241684019 and ammotype == 'AMMO_ARROW_POISON' then -- bow weapon group
+        max_ammo = Config.MaxArrowAmmoPoison
+        amount_ammo = Config.AmountPoisonArrowAmmo
+        ammo_type = 'ammo_arrow_poison'
+        valid_ammo = true
+    end   
+        
     if weapongroup == 970310034 and weapon == -570967010 and (ammotype == 'AMMO_22') then -- varmint rifle weapon group
         max_ammo = Config.MaxVarmintAmmo
         amount_ammo = Config.AmountVarmintAmmo
