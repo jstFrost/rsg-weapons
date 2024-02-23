@@ -12,6 +12,9 @@ Config.DegradeRate = 0.01
 
 -- limit the amount of ammo players can load
 Config.MaxArrowAmmo = 12
+Config.MaxArrowAmmoFire = 8
+Config.MaxArrowAmmoPoison = 5
+Config.MaxArrowAmmoDynamite= 5
 Config.MaxRevolverAmmo = 12
 Config.MaxPistolAmmo = 12
 Config.MaxRepeaterAmmo = 12
@@ -21,6 +24,9 @@ Config.MaxShotgunAmmo = 12
 
 -- amount of ammo per load
 Config.AmountArrowAmmo = 12
+onfig.AmountFireArrowAmmo = 8
+Config.AmountPoisonArrowAmmo = 5
+Config.AmountDynamiteArrowAmmo = 5
 Config.AmountRevolverAmmo = 12
 Config.AmountPistolAmmo = 12
 Config.AmountRepeaterAmmo = 12
