@@ -56,6 +56,19 @@ RSGCore.Functions.CreateUseableItem('ammo_arrow', function(source, item)
     TriggerClientEvent('rsg-weapons:client:AddAmmo', source, 'AMMO_ARROW', Config.AmountArrowAmmo, item)
 end)
 
+RSGCore.Functions.CreateUseableItem('ammo_arrow_fire', function(source, item)
+    TriggerClientEvent('rsg-weapons:client:AddAmmo', source, 'AMMO_ARROW_FIRE', Config.AmountFireArrowAmmo, item)
+end)
+
+RSGCore.Functions.CreateUseableItem('ammo_arrow_poison', function(source, item)
+    TriggerClientEvent('rsg-weapons:client:AddAmmo', source, 'AMMO_ARROW_POISON', Config.AmountPoisonArrowAmmo, item)
+end)
+
+RSGCore.Functions.CreateUseableItem('ammo_arrow_dynamite', function(source, item)
+    TriggerClientEvent('rsg-weapons:client:AddAmmo', source, 'AMMO_ARROW_DYNAMITE', Config.AmountDynamiteArrowAmmo, item)
+end)
+
+
 RSGCore.Functions.CreateUseableItem('ammo_varmint', function(source, item)
     TriggerClientEvent('rsg-weapons:client:AddAmmo', source, 'AMMO_22', Config.AmountRifleAmmo, item)
 end)
